@@ -30,6 +30,8 @@ echo "Cỡ:"
 mk size:S e4e669 "≤ 2 giờ"; mk size:M e4e669 "≤ 1 phiên"; mk size:L e4e669 "Phải chia nhỏ"
 echo "Ưu tiên:"
 mk prio:high b60205 "Gấp"; mk prio:normal ededed "Bình thường"; mk prio:low ededed "Khi rảnh"
+echo "Model:"
+mk model:opus 7057ff "Ép dùng Opus"; mk model:sonnet 7057ff "Ép dùng Sonnet"
 echo "Module:"
 mk module:shared 000000 "File dùng chung, chỉ Tech Lead"
 for m in "$@"; do mk "module:$m" 0052cc "Module $m"; done

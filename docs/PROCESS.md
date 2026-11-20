@@ -23,6 +23,7 @@ Chạy `scripts/setup-labels.sh <owner/repo>` một lần cho mỗi repo dự á
 | Loại | `type:feature`, `type:bug`, `type:security`, `type:refactor`, `type:docs` |
 | Cỡ | `size:S` (≤ 2 giờ), `size:M` (≤ 1 phiên), `size:L` (phải chia nhỏ trước khi `ready`) |
 | Ưu tiên | `prio:high`, `prio:normal`, `prio:low` |
+| Model (tùy chọn) | `model:opus`, `model:sonnet`: ép model; không gắn thì chọn theo mục 10 |
 
 ## 4. Vòng đời
 ```
@@ -73,3 +74,15 @@ Sau mỗi PR làm đổi cách module chạy: cập nhật `docs/modules/<module
 - Đẩy thẳng vào `main`.
 - Đưa khóa bí mật, mật khẩu, dữ liệu cá nhân của khách vào code, issue hay log.
 - Sửa test cho "qua" thay vì sửa lỗi.
+
+## 10. Chọn model
+Lượt điều phối chạy bằng model của lịch, chỉ để kiểm job và ghi bảng. Việc code và QA giao cho một tác tử con (subagent) với model theo bảng:
+
+| Việc | Model |
+|---|---|
+| Job `size:S`, hoặc `type:bug`/`type:docs`, hoặc `lane:fix` | sonnet |
+| Job `size:M`, hoặc `type:security`, hoặc `lane:sec`, hoặc `lane:be` có đụng schema/dữ liệu | opus |
+| QA thường | sonnet |
+| QA cho job `type:security` hoặc `lane:be` cỡ M | opus |
+
+Nhãn `model:opus` / `model:sonnet` trên issue thắng bảng. Không dùng haiku để viết code.
