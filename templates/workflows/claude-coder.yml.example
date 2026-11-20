@@ -1,0 +1,33 @@
+# BẢN NHÁP cho bước 5. Chưa bật. Kiểm lại tên input của action theo tài liệu
+# https://github.com/anthropics/claude-code-action trước khi dùng.
+# Chép vào <repo dự án>/.github/workflows/claude-coder.yml và thêm secret
+# CLAUDE_CODE_OAUTH_TOKEN (dùng hạn mức gói Claude) hoặc ANTHROPIC_API_KEY (tính theo lượt).
+name: claude-coder
+
+on:
+  issues:
+    types: [labeled]
+
+concurrency:
+  # Mỗi issue chỉ chạy 1 coder; khóa theo module do coder tự kiểm (PROCESS mục 5.3)
+  group: coder-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  code:
+    if: github.event.label.name == 'status:ready'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Bạn là coder DEV-AUTO của đội coder. Job: issue #${{ github.event.issue.number }} trong repo ${{ github.repository }}.
+            Làm đúng theo https://github.com/minhduc1395/dev-hub/blob/main/docs/CODER-PROMPT.md (bước 1–8).
+            Không merge, không deploy, không sửa ngoài "Được sửa".
