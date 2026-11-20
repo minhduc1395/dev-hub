@@ -9,13 +9,15 @@ Một **scheduled task** trên claude.ai tên "Đội coder: điều phối". M�
 4. **Lịch thưa:** 4 lượt mỗi ngày (8:23, 12:23, 15:23, 18:23) là đủ cho giai đoạn đầu.
 5. **Dashboard:** tab "Đội coder" trong Team Hub do lịch ghi; dashboard VIVE Điều hành đọc tab này. Cần nhanh thì Tech Lead nhắn BOD bấm "Run now".
 
-## Lời nhắc của lịch (bản dùng thật)
-Bản đang chạy nằm trong scheduled task "Đội coder: điều phối" (sửa 20/11 sau lượt thử đầu). Điểm chính:
-- Mỗi lượt **tối đa 1 lượt QA và tối đa 1 job code**. Không QA job do chính lượt đó code (tránh tự làm tự chấm). Không lặp lại các bước.
-- Bước 1 lấy một lần hai danh sách: (A) issue `status:in-review`, (B) issue `status:ready` (và `status:changes`). QA chỉ chọn trong A; code chỉ chọn trong B.
-- QA và code giao cho tác tử con với model theo PROCESS mục 10.
-- Cuối lượt dựng lại bảng tab "Đội coder" trên Team Hub và ghi ô L2.
-Lượt thử 20/11 13:27 đã code #2, QA #2 rồi code thêm #1 trong cùng lượt; luật trên sửa lỗi đó.
+## Hai lịch chạy nối nhau
+| Lịch | Khi chạy | Làm gì |
+|---|---|---|
+| "Đội coder: điều phối" | 8:23, 12:23, 15:23, 18:23, và khi lịch QA gọi | Nhận tối đa 1 job (job bị trả lại trước), giao coder; coder xong thì **gọi lịch QA ngay**. Không tự QA |
+| "Đội coder: QA" | Chỉ khi được gọi (không có giờ cố định) | QA đúng 1 job. QA-PASS: khách có `auto_merge: true` thì tự merge và đóng issue; còn job ready thì gọi lại lịch điều phối. QA-CHANGES: gọi lịch điều phối sửa ngay (tối đa 2 lần trả lại; lần 3 gắn `status:blocked` cho Tech Lead) |
+
+Khi có việc, đội chạy liền một chuỗi: code → QA → merge → job kế tiếp, không chờ giờ cố định. Hết job thì chuỗi dừng, không tốn gì. Giờ cố định chỉ để bắt job mới Tech Lead vừa giao và việc bị sót.
+
+QA chạy ở phiên riêng, không cùng phiên với coder, nên không tự làm tự chấm. Lời nhắc đầy đủ nằm trong hai scheduled task.
 
 ## Bật / tắt
 - Bật: BOD tạo scheduled task với lời nhắc trên (hoặc nhắn DIR "bật lịch đội coder").
