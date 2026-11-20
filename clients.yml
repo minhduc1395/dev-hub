@@ -12,4 +12,4 @@ clients:
     repo: minhduc1395/vive-swipe
     tech_lead: WEB (VIVE)
     auto_merge: false  # WEB duyệt và merge
-    active: false   # WEB tự làm tới khi muốn giao job cho đội coder
+    active: true    # 20/11: nhận job khi WEB gắn status:ready; WEB duyệt và merge
