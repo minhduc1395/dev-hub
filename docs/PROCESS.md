@@ -3,10 +3,10 @@
 ## 1. Vai trò
 | Vai | Ai | Quyền |
 |---|---|---|
-| Tech Lead | Phòng WEB (VIVE); Tech Lead riêng của dự án khác ghi trong `projects/<tên>.md` | Viết job, gắn nhãn, trả lời `BLOCKED`, merge, deploy, sửa file dùng chung |
-| Coder | Phiên Claude Code theo làn (xem `roster.md`), Antigravity | Nhận 1 job, code trên nhánh riêng, mở PR |
-| QA | Phiên QA (lịch QA hoặc khung chat QA) | Review PR, chạy test, ghi `QA-PASS` / `QA-CHANGES` |
-| Khách | BOD và các phòng | Nêu nhu cầu với Tech Lead, không giao thẳng cho coder |
+| Tech Lead | Người đại diện của mỗi khách, ghi trong `clients.yml` (VIVE: phòng WEB; sandbox: DIR) | Viết job, gắn nhãn, trả lời `BLOCKED`, merge, deploy, sửa file dùng chung |
+| Coder | Phiên Claude Code do lịch điều phối mở (DEV-AUTO) hoặc mở tay theo làn (`roster.md`) | Nhận 1 job, code trên nhánh riêng, mở PR |
+| QA | Lịch điều phối (QA-PROMPT) hoặc QA riêng của khách | Review PR, chạy test, ghi `QA-PASS` / `QA-CHANGES` |
+| Người dùng cuối của khách | BOD, các phòng của khách | Nêu nhu cầu với Tech Lead, không giao thẳng cho coder |
 
 ## 2. Job ở đâu
 - Mỗi job là 1 Issue trong **repo dự án**, viết theo `templates/ISSUE_TEMPLATE/job.md`.
@@ -36,8 +36,7 @@ Ai đổi trạng thái thì gỡ nhãn trạng thái cũ, gắn nhãn mới, k�
 ## 5. Chống chồng chéo
 1. Mỗi repo dự án có `docs/modules/README.md`: bảng module → thư mục → làn chính.
 2. Job thuộc đúng 1 module, ghi "Được sửa" và "Không được sửa".
-3. **Một module chỉ 1 job ở `claimed`, `in-review` hoặc `changes` cùng lúc.** Coder kiểm bằng:
-   `gh issue list --repo <repo> --label module:<tên> --label status:claimed` (và `status:in-review`, `status:changes`). Có kết quả thì không nhận.
+3. **Một module chỉ 1 job ở `claimed`, `in-review` hoặc `changes` cùng lúc.** Coder kiểm bằng lệnh "Module X có job đang chạy không" trong `docs/GH-COMMANDS.md`. Có kết quả lớn hơn 0 thì không nhận.
 4. File dùng chung chỉ sửa qua job `module:shared`, làm tuần tự: `package.json`, lockfile, migration và schema DB, file cấu hình (`next.config.*`, `tsconfig*`, `.env*` mẫu, CI), layout gốc, `data/*.yaml` (dữ liệu giá, khuyến mãi).
 5. Nhánh: `job/<số issue>-<tên-ngắn>`. Trước khi mở PR: `git fetch origin main && git rebase origin/main`.
 6. PR nhỏ, lý tưởng dưới 400 dòng đổi. Lớn hơn thì Tech Lead chia job.
@@ -65,9 +64,9 @@ Không đọc dự án khác, không đọc issue cũ trừ khi job dẫn link, 
 Sau mỗi PR làm đổi cách module chạy: cập nhật `docs/modules/<module>.md` trong chính PR đó (1–5 dòng). Đây là trí nhớ của đội.
 
 ## 8. Kích hoạt
-- Giai đoạn đầu: BOD hoặc Tech Lead mở phiên Claude Code trên repo dự án và dán `docs/CODER-PROMPT.md`.
-- Tự động (bước 5): GitHub Action chạy coder khi một issue được gắn `status:ready` (mẫu `templates/workflows/claude-coder.yml.example`). Không có job thì không tốn gì.
-- Dự phòng: lịch chạy định kỳ, bước đầu chỉ chạy `gh issue list --label status:ready`; rỗng thì dừng ngay.
+- Tự động: lịch điều phối trên claude.ai (hạn mức gói Claude), xem `docs/DISPATCHER.md`. Bước đầu mỗi lượt chỉ hỏi GitHub có job không; không có thì dừng ngay.
+- Gấp: Tech Lead nhờ BOD bấm "Run now" cho lịch, hoặc mở tay một phiên Claude Code với `docs/CODER-PROMPT.md`.
+- Lệnh GitHub: chỉ `gh api` (REST), xem `docs/GH-COMMANDS.md`.
 
 ## 9. Không bao giờ
 - Merge hoặc deploy (trừ Tech Lead).

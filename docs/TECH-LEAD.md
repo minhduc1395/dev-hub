@@ -1,13 +1,9 @@
 # Việc của Tech Lead
 
-Tech Lead của VIVE là phòng WEB. Dự án khác ghi Tech Lead trong `projects/<tên>.md`.
+Mỗi khách có 1 Tech Lead (ghi trong `clients.yml`). VIVE: phòng WEB.
 
-## Chuẩn bị một repo dự án (một lần)
-1. `scripts/setup-labels.sh <owner/repo>` để tạo bộ nhãn.
-2. Chép `templates/ISSUE_TEMPLATE/job.md` vào `.github/ISSUE_TEMPLATE/job.md` và `templates/PULL_REQUEST_TEMPLATE.md` vào `.github/PULL_REQUEST_TEMPLATE.md`.
-3. Viết `CLAUDE.md` gốc theo `templates/CLAUDE.project.md`, dưới 150 dòng.
-4. Lập `docs/modules/README.md` (bảng module) và 1 file `docs/modules/<module>.md` cho mỗi module chính theo `templates/module-pack.md`. Bắt đầu với 3–5 module hay sửa nhất.
-5. Thêm dự án vào `projects/` của dev-hub.
+## Chuẩn bị repo (một lần)
+Theo `docs/ONBOARDING.md`. DIR chạy script; Tech Lead điền `CLAUDE.md` (dưới 150 dòng) và gói ngữ cảnh cho 3–5 module hay sửa nhất.
 
 ## Viết một job
 - Một job = một kết quả kiểm được, thuộc 1 module, cỡ S hoặc M. Việc lớn thì chia.

@@ -1,10 +1,18 @@
 #!/usr/bin/env bash
-# Tạo bộ nhãn chuẩn của đội coder cho một repo dự án.
+# Tạo bộ nhãn chuẩn của đội coder cho một repo khách hàng.
 # Dùng: scripts/setup-labels.sh owner/repo [module1 module2 ...]
+# Chỉ dùng REST API (phiên Claude Code không gọi được GraphQL).
 set -euo pipefail
 REPO="${1:?Cần owner/repo}"; shift || true
 
-mk() { gh label create "$1" --repo "$REPO" --color "$2" --description "$3" --force >/dev/null && echo "  $1"; }
+mk() {
+  local name="$1" color="$2" desc="$3"
+  if gh api "repos/$REPO/labels" -f name="$name" -f color="$color" -f description="$desc" >/dev/null 2>&1; then
+    echo "  + $name"
+  else
+    gh api -X PATCH "repos/$REPO/labels/$(printf '%s' "$name" | jq -sRr @uri)" -f color="$color" -f description="$desc" >/dev/null && echo "  = $name"
+  fi
+}
 
 echo "Trạng thái:"
 mk status:draft     cccccc "Tech Lead đang viết"
@@ -14,7 +22,6 @@ mk status:in-review fbca04 "Có PR, chờ QA"
 mk status:changes   d93f0b "QA trả lại"
 mk status:qa-pass   5319e7 "QA đạt, chờ Tech Lead merge"
 mk status:blocked   b60205 "Chờ Tech Lead trả lời"
-
 echo "Làn:"
 for l in fe be sec fix; do mk "lane:$l" c5def5 "Làn $l"; done
 echo "Loại:"

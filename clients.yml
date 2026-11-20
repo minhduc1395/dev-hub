@@ -1,0 +1,12 @@
+# Danh sách repo khách hàng mà đội coder phục vụ.
+# Lịch điều phối chỉ đọc file này rồi hỏi GitHub các issue status:ready; không đọc gì khác khi không có việc.
+# active: false = tạm dừng nhận job từ khách này.
+clients:
+  - name: sandbox
+    repo: minhduc1395/dev-sandbox
+    tech_lead: DIR (dự án thử)
+    active: true
+  - name: vive-swipe
+    repo: minhduc1395/vive-swipe
+    tech_lead: WEB (VIVE)
+    active: false   # WEB tự làm tới khi muốn giao job cho đội coder

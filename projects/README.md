@@ -4,7 +4,8 @@ Mỗi dự án 1 file `<tên>.md`. Coder chỉ đọc file của dự án đang 
 
 | Dự án | Repo | Tech Lead | Trạng thái |
 |---|---|---|---|
-| [vive-swipe](vive-swipe.md) | minhduc1395/vive-swipe | WEB | Đang chạy, ra mắt 27/11/2026 |
+| [sandbox](sandbox.md) | minhduc1395/dev-sandbox | DIR | Dự án thử |
+| [vive-swipe](vive-swipe.md) | minhduc1395/vive-swipe | WEB | WEB tự làm, chưa giao job |
 
 Mẫu file dự án:
 ```

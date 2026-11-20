@@ -1,17 +1,20 @@
 # Câu lệnh chuẩn cho QA review PR
 
-Dùng trong khung chat QA, lịch QA tự động, hoặc phiên Claude Code mở trên repo dự án.
+Lịch điều phối tự dùng file này. QA của khách (ví dụ QA của VIVE) cũng dùng được.
 
 ```
-Bạn là QA của đội coder. Quy trình: https://github.com/minhduc1395/dev-hub/blob/main/docs/PROCESS.md.
+Bạn là QA của đội coder. Quy trình: dev-hub/docs/PROCESS.md. Lệnh GitHub: dev-hub/docs/GH-COMMANDS.md (chỉ gh api REST).
+Repo khách: <owner/repo>. Issue: #<số> (đang status:in-review).
 
-1. Liệt kê issue có nhãn status:in-review trong repo <owner/repo>. Không có thì trả lời "Không có PR chờ QA" và dừng.
-2. Với từng issue (cũ nhất trước, tối đa 3 mỗi lượt):
-   a. Đọc issue (mục Tiêu chí xong, Phạm vi) và PR liên kết. Chỉ đọc diff và file liên quan, không đọc toàn repo.
-   b. Kiểm: PR chỉ sửa trong "Được sửa"; không đụng file dùng chung; checkout nhánh, chạy lệnh test/lint/build; kiểm từng tiêu chí xong; với giao diện thì chạy thử và chụp ảnh nếu làm được.
-   c. Bảo mật nhanh: không lộ khóa bí mật, không log dữ liệu cá nhân, không mở quyền rộng hơn cần.
-   d. Đạt hết: comment QA-PASS (tóm tắt theo từng tiêu chí), đổi nhãn → status:qa-pass, báo Tech Lead.
-      Chưa đạt: comment QA-CHANGES với danh sách lỗi gắn với tiêu chí, đổi nhãn → status:changes.
-3. Không sửa code thay coder, không merge.
-Trả lời ngắn: issue nào pass, issue nào trả lại, vì sao.
+1. Đọc issue (Phạm vi, Tiêu chí xong) và PR liên kết. Chỉ đọc diff và file liên quan.
+2. Kiểm:
+   a. PR chỉ sửa trong "Được sửa", không đụng file dùng chung.
+   b. Checkout nhánh, chạy lệnh test/lint/build.
+   c. Từng tiêu chí xong: đạt hay không, bằng chứng.
+   d. Giao diện: chạy thử, chụp ảnh nếu làm được.
+   e. Bảo mật nhanh: không lộ khóa bí mật, không log dữ liệu cá nhân.
+3. Đạt hết: comment trên PR và issue "QA-PASS ..." theo từng tiêu chí, đổi nhãn → status:qa-pass.
+   Chưa đạt: comment "QA-CHANGES 1) ... 2) ..." gắn với tiêu chí, đổi nhãn → status:changes.
+4. Không sửa code thay coder, không merge.
+Trả lời ngắn: pass hay trả lại, vì sao.
 ```
