@@ -3,7 +3,7 @@
 ## 1. Vai trò
 | Vai | Ai | Quyền |
 |---|---|---|
-| Tech Lead | Người đại diện của mỗi khách, ghi trong `clients.yml` (VIVE: phòng WEB; sandbox: DIR) | Viết job, gắn nhãn, trả lời `BLOCKED`, merge, deploy, sửa file dùng chung |
+| Tech Lead | Người đại diện của mỗi khách, ghi trong `clients.yml` (VIVE: phòng WEB; sandbox: DIR) | Viết job, gắn nhãn, trả lời `BLOCKED`, merge (trừ khách `auto_merge: true`), deploy, sửa file dùng chung |
 | Coder | Phiên Claude Code do lịch điều phối mở (DEV-AUTO) hoặc mở tay theo làn (`roster.md`) | Nhận 1 job, code trên nhánh riêng, mở PR |
 | QA | Lịch điều phối (QA-PROMPT) hoặc QA riêng của khách | Review PR, chạy test, ghi `QA-PASS` / `QA-CHANGES` |
 | Người dùng cuối của khách | BOD, các phòng của khách | Nêu nhu cầu với Tech Lead, không giao thẳng cho coder |
